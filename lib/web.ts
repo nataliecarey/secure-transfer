@@ -68,7 +68,8 @@ app.use(downloadables.routes());
 app.use(downloadables.allowedMethods());
 
 app.use((ctx) => {
-  ctx.throw(404, `Not found (${publicWebDir})`);
+  ctx.response.status = 404;
+  ctx.response.body = "Not found";
 });
 
 app.addEventListener("error", (evt) => {
