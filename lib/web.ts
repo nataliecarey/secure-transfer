@@ -1,6 +1,6 @@
 import { Application, Router } from "jsr:@oak/oak";
 import { Eta } from "jsr:@eta-dev/eta";
-import { publicWebDir, viewsDir } from "./config.ts";
+import {port, publicWebDir, viewsDir} from "./config.ts";
 import { Storage } from "../db/storage.ts";
 
 const storage = new Storage();
@@ -75,8 +75,12 @@ app.addEventListener("error", (evt) => {
   console.error(evt.error);
 });
 
+app.addEventListener("listen", ({ hostname, port, secure }) => {
+  console.log(`Listening on: ${secure ? "https://" : "http://"}${hostname ?? "localhost"}:${port}`);
+})
+
 export function startServer() {
-  app.listen({ port: 8000 });
+  app.listen({ port });
 }
 
 function generateReportCode() {
