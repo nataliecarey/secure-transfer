@@ -1,7 +1,7 @@
-import { Application, Router } from "jsr:@oak/oak";
-import { Eta } from "jsr:@eta-dev/eta";
+import {Application, Router} from "jsr:@oak/oak";
+import {Eta} from "jsr:@eta-dev/eta";
 import {port, publicWebDir, viewsDir} from "./config.ts";
-import { Storage } from "../db/storage.ts";
+import {Storage} from "../db/storage.ts";
 
 const storage = new Storage();
 
@@ -54,7 +54,7 @@ const downloadables = new Router()
         "Content-Disposition",
         `attachment; filename="${(getFileName(result.path))}"`,
       );
-      context.response.body = await Deno.readFile(result.path);
+      context.response.body = await Deno.open(result.path);
     } else {
       context.response.status = 302;
       context.response.headers.set(

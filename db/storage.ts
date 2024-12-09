@@ -46,7 +46,7 @@ export class Storage {
     plainTextPassword: string,
   ): Promise<BasicDownloadableDescription | null> {
     const dbResult: DownloadableDbRow | undefined = this.db.prepare(
-      `select * from downloadables where url_key = ? and available_until > datetime('now')`,
+      `select * from downloadables where url_key = ? and (available_until > datetime('now') or available_until is null)`,
     ).get(urlKey);
     if (!dbResult) {
       await currentEncrypter(plainTextPassword, "abcdef"); // to standardise the response time
