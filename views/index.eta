@@ -41,13 +41,13 @@
     <div class="container px-5">
         <div class="row gx-5 align-items-center">
             <div class="fs-4 mt-5 mb-5" id="full-download-area">
+                <% if (it.wrongPassword) { %>
+                    <p class="mb-4 error-message">The password you entered was incorrect or the download has expired, please try again.</p>
+                <% } %>
                 <h2 class="display-4 mb-4">Begin your download</h2>
                 <p class="mb-4">This site is for transferring files to and from Natalie Carey using a secure
                     transfer.</p>
                 <% if (it.code) { %>
-                    <% if (it.wrongPassword) { %>
-                        <p class="mb-4">The password you entered was incorrect or the download has expired, please try again.</p>
-                    <% } %>
                     <form action="/download" method="post" data-dom-widget="downloadForm"
                           data-success-hide-id="full-download-area" data-report-code="<%= it.reportCode %>">
                         <input type="hidden" name="code" value="<%= it.code %>">

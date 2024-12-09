@@ -27,11 +27,13 @@ function getFileName(path: string) {
 }
 
 const downloadables = new Router()
-  .get("/", async (context) => {
+  .get('/', async (context) => {
+    context.response.body = await eta.renderAsync("index", {});
+  })
+  .get('/:code', async (context) => {
     const data = {
-      code: context.request.url.searchParams.get("code") as string,
-      wrongPassword: (context.request.url.searchParams.get("wrongPassword") ||
-        false) as boolean,
+      code: context.params.code as string,
+      wrongPassword: context.request.url.searchParams.get("wrongPassword") === 'true',
       reportCode: generateReportCode(),
     };
     context.response.body = await eta.renderAsync("index", data);
@@ -57,7 +59,7 @@ const downloadables = new Router()
       context.response.status = 302;
       context.response.headers.set(
         "Location",
-        `/?code=${code}&wrongPassword=true`,
+        `/${encodeURIComponent(code)}?wrongPassword=true`,
       );
       context.response.body =
         "Wrong password, redirecting so you can try again";

@@ -11697,8 +11697,8 @@ header.masthead .bg-circle-4 {
 
 @media (min-width: 992px) {
   header.masthead {
-    padding-top: calc(10rem + 55px);
-    padding-bottom: 10rem;
+    padding-top: calc(4rem + 55px);
+    padding-bottom: 4rem;
   }
   header.masthead .masthead-content .masthead-heading {
     font-size: 6rem;
@@ -11706,4 +11706,11 @@ header.masthead .bg-circle-4 {
   header.masthead .masthead-content .masthead-subheading {
     font-size: 4rem;
   }
+}
+
+.error-message {
+  color: #dc3545;
+  font-weight: bold;
+  border: 5px solid #dc3545;
+  padding: 1rem;
 }
