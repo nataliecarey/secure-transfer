@@ -45,7 +45,7 @@ const downloadables = new Router()
     const password = body.get("password") as string;
     const result = await storage.lookupDownloadable(code, password);
     if (result) {
-      console.log(`successfully downloading [${code}]`);
+      console.log(`[${new Date().toISOString()}] successfully downloading [${code}]`);
       context.cookies.set(
         `last-successful-download-${reportCode}`,
         `${Date.now()}`,
@@ -57,7 +57,7 @@ const downloadables = new Router()
       );
       context.response.body = await Deno.open(result.path);
     } else {
-      console.log(`wrong password or bad code [${code}]`);
+      console.log(`[${new Date().toISOString()}] wrong password or bad code [${code}]`);
       context.response.status = 302;
       context.response.headers.set(
         "Location",
